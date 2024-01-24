@@ -20,8 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.medicalprescriptiontracker.Presentation.Components.MedicationItem
-import com.example.medicalprescriptiontracker.Presentation.Components.SearchBar
+import com.example.medicalprescriptiontracker.Presentation.Components.MedicationListScreen.MedicationItem
+import com.example.medicalprescriptiontracker.Presentation.Components.MedicationListScreen.SearchBar
 import com.example.medicalprescriptiontracker.Presentation.ViewModels.MedicationViewModel
 
 @Composable

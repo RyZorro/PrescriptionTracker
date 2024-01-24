@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components
+package com.example.medicalprescriptiontracker.Presentation.Components.MedicationListScreen
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text

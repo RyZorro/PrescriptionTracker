@@ -4,7 +4,9 @@ import android.util.Log
 import com.example.medicalprescriptiontracker.Infrastructure.Service.FirebaseCloudFirestore
 import com.example.medicalprescriptiontracker.Prescription
 import com.example.medicalprescriptiontracker.Medication
+import com.example.medicalprescriptiontracker.Profile
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.tasks.await
@@ -92,16 +94,6 @@ class FirebaseCloudFirestoreRepository: FirebaseCloudFirestore {
 
 
 
-
-
-
-
-
-
-
-
-
-
     /**
      * Retrieves a list of prescriptions for a specific user from the Firestore database.
      * @param userId The unique identifier of the user.
@@ -132,7 +124,44 @@ class FirebaseCloudFirestoreRepository: FirebaseCloudFirestore {
             emptyList()
         }
     }
+
+    override suspend fun getUserProfileInfo(userId: String): Profile {
+        return try {
+            val detailsCollection = firestore
+                .collection("users")
+                .document(userId)
+                .collection("details")
+
+            val detailsQuery = detailsCollection.limit(1) // Limit to one document, you can adjust as needed
+
+            val detailsSnapshot = detailsQuery.get().await()
+
+            if (!detailsSnapshot.isEmpty) {
+                // Get the first document in the query result
+                val firstDocument = detailsSnapshot.documents[0]
+
+                // Map the document data to a Profile object
+                val userProfile = firstDocument.toObject(Profile::class.java)
+                Log.d("FirebaseFirestoreRepository", "UserProfile: $userProfile")
+                userProfile ?: throw NullPointerException("Mapping to Profile failed")
+            } else {
+                // Handle the case where the subcollection is empty
+                Log.d("FirebaseFirestoreRepository", "No details document found for user with ID: $userId")
+                throw NoSuchElementException("No details document found for user with ID: $userId")
+            }
+        } catch (e: Exception) {
+            // Log the exception for debugging purposes
+            Log.e("FirebaseFirestoreRepository", "Exception: $e")
+
+            // Rethrow the exception or return a default Profile() based on your preference
+            throw e
+        }
+    }
 }
+
+
+
+
 
 /*
 override suspend fun getPrescriptionById(

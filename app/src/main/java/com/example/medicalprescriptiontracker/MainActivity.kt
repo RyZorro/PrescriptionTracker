@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.DrawerValue
@@ -66,7 +68,7 @@ class MainActivity : ComponentActivity() {
                 val homeViewModel = ViewModelProviderImpl().provideHomeViewModel()
                 //val prescriptionViewModel = ViewModelProviderImpl().providePrescriptionViewModel()
                 val viewModel = ViewModelProviderImpl().provideMedicationViewModel()
-
+                val profileViewModel = ViewModelProviderImpl().provideProfileViewModel()
 
                 // Navigation Drawer Items
                 val items = listOf(
@@ -81,6 +83,12 @@ class MainActivity : ComponentActivity() {
                         selectedIcon = Icons.Filled.Info,
                         unselectedIcon = Icons.Outlined.Info,
                         route = Screen.Medication.route
+                    ),
+                    NavigationItem(
+                        title = "Hyperion Profile",
+                        selectedIcon = Icons.Filled.AccountCircle,
+                        unselectedIcon = Icons.Outlined.AccountCircle,
+                        route = Screen.Profile.route
                     )
                 )
 
@@ -93,15 +101,18 @@ class MainActivity : ComponentActivity() {
 
                 // Modal Navigation Drawer
                 ModalNavigationDrawer(
-                    drawerContent = { DrawerContent(
-                        items = items,
-                        selectedItemIndex = selectedItemIndex, onItemSelected = { index ->
-                            selectedItemIndex = index
-                            scope.launch {
-                                drawerState.close()
-                            } },
-                        navController = navController)
-                                    },
+                    drawerContent = {
+                        DrawerContent(
+                            items = items,
+                            selectedItemIndex = selectedItemIndex, onItemSelected = { index ->
+                                selectedItemIndex = index
+                                scope.launch {
+                                    drawerState.close()
+                                }
+                            },
+                            navController = navController
+                        )
+                    },
                     drawerState = drawerState
                 ) {
                     // Navigation Defined For App
@@ -115,7 +126,11 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.Page1.route) {
                             val userId = firebaseAuth.currentUser?.uid
                             if (userId != null) {
-                                Page1Screen(userId = userId, viewModel = homeViewModel, navController = navController)
+                                Page1Screen(
+                                    userId = userId,
+                                    viewModel = homeViewModel,
+                                    navController = navController
+                                )
                             }
                         }
                         composable(Screen.PrescriptionDetail.createRoute("{prescriptionId}")) { backStackEntry ->
@@ -133,129 +148,137 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.Medication.route) {
                             MedicationListScreen(viewModel)
                         }
-                    }
-                }
-            }
-        }
-    }
-}
-
-data class NavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val route: String
-)
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DrawerContent(
-    items: List<NavigationItem>,
-    selectedItemIndex: Int,
-    onItemSelected: (Int) -> Unit,
-    navController: NavController
-) {
-    ModalDrawerSheet {
-        items.forEachIndexed { index, navigationItem ->
-            NavigationDrawerItem(
-                label = { Text(text = navigationItem.title) },
-                selected = index == selectedItemIndex,
-                onClick = {
-                    onItemSelected(index)
-                    navController.navigate(navigationItem.route)
-                },
-                icon = {
-                    Icon(
-                        imageVector = if (index == selectedItemIndex) {
-                            navigationItem.selectedIcon
-                        } else navigationItem.unselectedIcon,
-                        contentDescription = navigationItem.title
-                    )
-                }
-            )
-        }
-    }
-}
-
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PrescriptionDetailScreen(
-    viewModel: PrescriptionViewModel,
-    userId: String?,
-    prescriptionId: String
-) {
-    // Trigger the loading of prescription details when the composable is first composed
-    LaunchedEffect(userId, prescriptionId) {
-        userId?.let {
-            viewModel.loadPrescriptionById(it, prescriptionId)
-        }
-    }
-
-    // Access prescription details from viewModel using the provided prescriptionId
-    val prescription by viewModel.prescriptions.collectAsState()
-
-    // Scaffold provides a basic structure for your screen
-    Scaffold(
-        topBar = {
-            // TopAppBar with a title
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Prescription Details",
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth() // Fill the width of the TopAppBar
-                            .padding(start = 16.dp, end = 16.dp), // Add padding to center the text
-                    )
-                })
-        },
-        content = {
-            // Use a Surface to provide background color and padding
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-            ) {
-                // Display prescription details
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    // Title
-                    Text(
-                        text = "Prescription Details",
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
-                        fontSize = 24.sp,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-
-                    prescription?.let {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.Start
-                        ) {
-                            PrescriptionDetailItem("Medication", it.medicationName)
-                            PrescriptionDetailItem("Instructions", it.instructions)
-                            PrescriptionDetailItem("Dosage", it.dosage)
-                            PrescriptionDetailItem("Prescribed", it.createdAt)
+                        composable(Screen.Profile.route) {
+                            val userId = firebaseAuth.currentUser?.uid
+                            if (userId != null) {
+                                ProfileScreen(userId, profileViewModel)
+                            }
                         }
-                    } ?: run {
-                        // Handle the case where prescription is null (e.g., loading or not found)
-                        Text(text = "Prescription not found")
                     }
                 }
             }
         }
+    }
+
+    data class NavigationItem(
+        val title: String,
+        val selectedIcon: ImageVector,
+        val unselectedIcon: ImageVector,
+        val route: String
     )
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun DrawerContent(
+        items: List<NavigationItem>,
+        selectedItemIndex: Int,
+        onItemSelected: (Int) -> Unit,
+        navController: NavController
+    ) {
+        ModalDrawerSheet {
+            items.forEachIndexed { index, navigationItem ->
+                NavigationDrawerItem(
+                    label = { Text(text = navigationItem.title) },
+                    selected = index == selectedItemIndex,
+                    onClick = {
+                        onItemSelected(index)
+                        navController.navigate(navigationItem.route)
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = if (index == selectedItemIndex) {
+                                navigationItem.selectedIcon
+                            } else navigationItem.unselectedIcon,
+                            contentDescription = navigationItem.title
+                        )
+                    }
+                )
+            }
+        }
+    }
+
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun PrescriptionDetailScreen(
+        viewModel: PrescriptionViewModel,
+        userId: String?,
+        prescriptionId: String
+    ) {
+        // Trigger the loading of prescription details when the composable is first composed
+        LaunchedEffect(userId, prescriptionId) {
+            userId?.let {
+                viewModel.loadPrescriptionById(it, prescriptionId)
+            }
+        }
+
+        // Access prescription details from viewModel using the provided prescriptionId
+        val prescription by viewModel.prescriptions.collectAsState()
+
+        // Scaffold provides a basic structure for your screen
+        Scaffold(
+            topBar = {
+                // TopAppBar with a title
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = "Prescription Details",
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth() // Fill the width of the TopAppBar
+                                .padding(
+                                    start = 16.dp,
+                                    end = 16.dp
+                                ), // Add padding to center the text
+                        )
+                    })
+            },
+            content = {
+                // Use a Surface to provide background color and padding
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                ) {
+                    // Display prescription details
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        // Title
+                        Text(
+                            text = "Prescription Details",
+                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
+                            fontSize = 24.sp,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
+
+                        prescription?.let {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.Start
+                            ) {
+                                PrescriptionDetailItem("Medication", it.medicationName)
+                                PrescriptionDetailItem("Instructions", it.instructions)
+                                PrescriptionDetailItem("Dosage", it.dosage)
+                                PrescriptionDetailItem("Prescribed", it.createdAt)
+                            }
+                        } ?: run {
+                            // Handle the case where prescription is null (e.g., loading or not found)
+                            Text(text = "Prescription not found")
+                        }
+                    }
+                }
+            }
+        )
+    }
 }
 
 // Define a reusable composable for prescription details

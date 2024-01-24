@@ -2,6 +2,7 @@ package com.example.medicalprescriptiontracker.Infrastructure.Service
 
 import com.example.medicalprescriptiontracker.Prescription
 import com.example.medicalprescriptiontracker.Medication
+import com.example.medicalprescriptiontracker.Profile
 
 /**
  * Interface defining data operations related to medications using Firebase Cloud Firestore.
@@ -38,4 +39,19 @@ interface FirebaseCloudFirestore {
      * @return A list of [Prescription] objects.
      */
     suspend fun getPrescriptions(userId: String): List<Prescription>
+
+
+
+
+    suspend fun getUserProfileInfo(userId: String): Profile
+
+
+
+
+
+
+
+
+
+
 }

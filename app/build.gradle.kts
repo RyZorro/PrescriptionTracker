@@ -73,4 +73,5 @@ dependencies {
 
     implementation ("androidx.navigation:navigation-compose:2.7.6")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation ("io.coil-kt:coil-compose:1.4.0")
 }

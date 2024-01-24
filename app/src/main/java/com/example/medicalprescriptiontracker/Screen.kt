@@ -10,4 +10,5 @@ sealed class Screen(val route: String) {
         }
     }
     object Medication: Screen("medication")
+    object Profile: Screen("profile")
 }

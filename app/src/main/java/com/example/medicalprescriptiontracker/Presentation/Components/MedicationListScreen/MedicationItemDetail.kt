@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components
+package com.example.medicalprescriptiontracker.Presentation.Components.MedicationListScreen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
