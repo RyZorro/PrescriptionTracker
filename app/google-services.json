@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "762407780805",
+    "project_id": "medicalprescriptiontracker",
+    "storage_bucket": "medicalprescriptiontracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762407780805:android:8672f2b7ff24da714d8bac",
+        "android_client_info": {
+          "package_name": "com.example.medicalprescriptiontracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6v3wHsYjzgN82FGiXnCTahBsw-QTR-bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
