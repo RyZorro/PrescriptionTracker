@@ -1,4 +1,6 @@
-package com.example.medicalprescriptiontracker
+package com.example.medicalprescriptiontracker.Infrastructure.Service
+
+import com.example.medicalprescriptiontracker.User
 
 /**
  * This interface defines the contract for interacting with Firebase Authentication services.

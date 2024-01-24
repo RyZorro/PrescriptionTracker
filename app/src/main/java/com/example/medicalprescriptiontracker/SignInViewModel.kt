@@ -2,8 +2,7 @@ package com.example.medicalprescriptiontracker
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.medicalprescriptiontracker.SignInWithEmailAndPasswordUseCase
-import com.example.medicalprescriptiontracker.User
+import com.example.medicalprescriptiontracker.Application.UseCase.SignInWithEmailAndPasswordUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

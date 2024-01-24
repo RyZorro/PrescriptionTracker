@@ -1,5 +1,7 @@
-package com.example.medicalprescriptiontracker
+package com.example.medicalprescriptiontracker.Infrastructure.Repositories
 
+import com.example.medicalprescriptiontracker.Infrastructure.Service.FirebaseAuthentication
+import com.example.medicalprescriptiontracker.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await
@@ -10,7 +12,6 @@ import kotlinx.coroutines.tasks.await
  */
 class FirebaseAuthenticationRepository() : FirebaseAuthentication {
 
-    // Initialize Firebase authentication
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     /**
@@ -23,10 +24,8 @@ class FirebaseAuthenticationRepository() : FirebaseAuthentication {
     override suspend fun signInWithEmailAndPassword(email: String, password: String): User? {
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            // If sign-in is successful, map FirebaseUser to User
             result.user?.let { mapFirebaseUserToUser(it) }
         } catch (e: Exception) {
-            // If sign-in fails, throw an exception
             throw e
         }
     }
