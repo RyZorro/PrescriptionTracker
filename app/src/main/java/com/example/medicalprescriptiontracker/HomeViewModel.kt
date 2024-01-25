@@ -3,8 +3,7 @@ package com.example.medicalprescriptiontracker
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.medicalprescriptiontracker.GetAllPrescriptionUseCase
-import com.example.medicalprescriptiontracker.Prescription
+import com.example.medicalprescriptiontracker.Application.UseCase.GetAllPrescriptionUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

@@ -64,11 +64,11 @@ class FirebaseCloudFirestoreRepository: FirebaseCloudFirestore {
                 .collection("prescriptions")
                 .add(
                     Prescription(
-                        prescriptionId = "",  // Implement a method to generate a unique ID
+                        prescriptionId = "",
                         medicationName = medication.medicationName,
-                        instructions = medication.specialInstructions,  // You may customize this based on your requirements
-                        dosage = medication.dosage,       // You may customize this based on your requirements
-                        createdAt = ""  // Implement a method to get the current timestamp
+                        instructions = medication.specialInstructions,
+                        dosage = medication.dosage,
+                        createdAt = ""
                     )
                 ).await()
         } catch (e: FirebaseFirestoreException) {
@@ -80,82 +80,49 @@ class FirebaseCloudFirestoreRepository: FirebaseCloudFirestore {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Retrieves a list of prescriptions for a specific user from the Firestore database.
      * @param userId The unique identifier of the user.
      * @return A list of Prescription objects.
      */
-    override suspend fun getPrescriptions(userId: String): List<Prescription> {
-        // Reference to the collection of prescriptions for a specific user
-        val prescriptionsCollection = firestore
-            .collection("users")
+    override suspend fun getPrescriptions(userId: String): List<Prescription> = try {
+        firestore.collection("users")
             .document(userId)
             .collection("prescriptions")
-
-        return try {
-            // Perform an asynchronous query to get the documents in the collection
-            val querySnapshot = prescriptionsCollection.get().await()
-            // Map the documents to Prescription objects, filtering out null values
-            querySnapshot.documents.mapNotNull { document ->
-                // Ensure that toObject doesn't return null
-                document.toObject(Prescription::class.java)
-            }
-        } catch (e: FirebaseFirestoreException) {
-            // Handle Firestore specific exceptions
-            Log.e("FirebaseFirestoreRepository", "Firestore Exception", e)
-            emptyList()
-        } catch (e: Exception) {
-            // Handle other exceptions
-            Log.e("FirebaseFirestoreRepository", "Unknown Exception", e)
-            emptyList()
-        }
+            .get()
+            .await()
+            .documents.mapNotNull { it.toObject(Prescription::class.java) }
+    } catch (e: FirebaseFirestoreException) {
+        Log.e("FirebaseFirestoreRepository", "Firestore Exception", e)
+        emptyList()
+    } catch (e: Exception) {
+        Log.e("FirebaseFirestoreRepository", "Unknown Exception", e)
+        emptyList()
     }
 
-    override suspend fun getUserProfileInfo(userId: String): Profile {
-        return try {
-            val detailsCollection = firestore
-                .collection("users")
-                .document(userId)
-                .collection("details")
 
-            val detailsQuery = detailsCollection.limit(1) // Limit to one document, you can adjust as needed
 
-            val detailsSnapshot = detailsQuery.get().await()
 
-            if (!detailsSnapshot.isEmpty) {
-                // Get the first document in the query result
-                val firstDocument = detailsSnapshot.documents[0]
 
-                // Map the document data to a Profile object
-                val userProfile = firstDocument.toObject(Profile::class.java)
-                Log.d("FirebaseFirestoreRepository", "UserProfile: $userProfile")
-                userProfile ?: throw NullPointerException("Mapping to Profile failed")
-            } else {
-                // Handle the case where the subcollection is empty
-                Log.d("FirebaseFirestoreRepository", "No details document found for user with ID: $userId")
-                throw NoSuchElementException("No details document found for user with ID: $userId")
-            }
-        } catch (e: Exception) {
-            // Log the exception for debugging purposes
-            Log.e("FirebaseFirestoreRepository", "Exception: $e")
 
-            // Rethrow the exception or return a default Profile() based on your preference
-            throw e
-        }
+    override suspend fun getUserProfileInfo(userId: String): Profile = try {
+        val userProfile = firestore
+            .collection("users")
+            .document(userId)
+            .collection("details")
+            .limit(1)
+            .get()
+            .await()
+            .documents
+            .firstOrNull()
+            ?.toObject(Profile::class.java)
+
+        Log.d("FirebaseFirestoreRepository", "UserProfile: $userProfile")
+
+        userProfile ?: throw NoSuchElementException("No details document found for user with ID: $userId")
+    } catch (e: Exception) {
+        Log.e("FirebaseFirestoreRepository", "Exception: $e")
+        throw e
     }
 }
 

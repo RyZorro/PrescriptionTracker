@@ -2,11 +2,13 @@ package com.example.medicalprescriptiontracker
 
 import com.example.medicalprescriptiontracker.Application.UseCase.AddMedicationUseCase
 import com.example.medicalprescriptiontracker.Application.UseCase.GetAllMedicationUseCase
+import com.example.medicalprescriptiontracker.Application.UseCase.GetAllPrescriptionUseCase
 import com.example.medicalprescriptiontracker.Application.UseCase.GetUserProfileUseCase
 import com.example.medicalprescriptiontracker.Application.UseCase.SearchAllMedicationUseCase
 import com.example.medicalprescriptiontracker.Application.UseCase.SignInWithEmailAndPasswordUseCase
 import com.example.medicalprescriptiontracker.Application.UseCaseImpl.AddMedicationUseCaseImpl
 import com.example.medicalprescriptiontracker.Application.UseCaseImpl.GetAllMedicationUseCaseImpl
+import com.example.medicalprescriptiontracker.Application.UseCaseImpl.GetAllPrescriptionUseCaseImpl
 import com.example.medicalprescriptiontracker.Application.UseCaseImpl.GetUserProfileUseCaseImpl
 import com.example.medicalprescriptiontracker.Application.UseCaseImpl.SearchAllMedicationUseCaseImpl
 import com.example.medicalprescriptiontracker.Application.UseCaseImpl.SignInWithEmailAndPasswordUseCaseImpl
@@ -50,7 +52,7 @@ class ViewModelProviderImpl: ViewModelProvider {
     override fun provideHomeViewModel(): HomeViewModel { return HomeViewModel(getAllPrescriptionUseCase) }
 
     override fun provideProfileViewModel(): ProfileViewModel {
-        return ProfileViewModel(getUserProfileUseCase)
+        return ProfileViewModel(getUserProfileUseCase,getAllPrescriptionUseCase)
     }
 
     /**
