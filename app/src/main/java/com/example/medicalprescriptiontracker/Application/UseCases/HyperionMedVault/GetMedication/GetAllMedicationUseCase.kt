@@ -1,10 +1,7 @@
-package com.example.medicalprescriptiontracker.Application.UseCase
+package com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.GetMedication
 
 import com.example.medicalprescriptiontracker.Medication
 
-/**
- * Use case interface for retrieving a list of all medications.
- */
 interface GetAllMedicationUseCase {
     suspend fun getAllMedication(): List<Medication>
 }

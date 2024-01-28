@@ -1,6 +1,6 @@
-package com.example.medicalprescriptiontracker.Application.UseCaseImpl
+package com.example.medicalprescriptiontracker.UseCaseImpl
 
-import com.example.medicalprescriptiontracker.Application.UseCase.AddMedicationUseCase
+import com.example.medicalprescriptiontracker.AddMedicationUseCase
 import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseCloudFirestoreRepository
 import com.example.medicalprescriptiontracker.Medication
 

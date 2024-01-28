@@ -1,6 +1,4 @@
-package com.example.medicalprescriptiontracker.Application.UseCase
-
-import com.example.medicalprescriptiontracker.User
+package com.example.medicalprescriptiontracker
 
 /**
  * This interface defines the contract for the use case of signing in a user.

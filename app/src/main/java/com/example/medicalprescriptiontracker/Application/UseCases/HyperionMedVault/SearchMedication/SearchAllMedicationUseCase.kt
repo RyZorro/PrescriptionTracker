@@ -1,10 +1,7 @@
-package com.example.medicalprescriptiontracker.Application.UseCase
+package com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.SearchMedication
 
 import com.example.medicalprescriptiontracker.Medication
 
-/**
- * Use case interface for searching medications based on a query.
- */
 interface SearchAllMedicationUseCase {
     suspend fun searchAllMedication(searchQuery: String): List<Medication>
 }

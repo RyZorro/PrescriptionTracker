@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Screens
+package com.example.medicalprescriptiontracker
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medicalprescriptiontracker.Presentation.Components.MedicationListScreen.MedicationItem
 import com.example.medicalprescriptiontracker.Presentation.Components.MedicationListScreen.SearchBar
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.MedicationViewModel
+import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
 
 @Composable
-fun MedicationListScreen(viewModel: MedicationViewModel) {
+fun MedicationListScreen(viewModel: HyperionMedVaultViewModel) {
     var searchQuery by remember { mutableStateOf("") }
 
     val medicationList by viewModel.medications.collectAsState()
@@ -41,7 +41,7 @@ fun MedicationListScreen(viewModel: MedicationViewModel) {
     ) {
 
         Text(
-            text = "Dr. Zed's Medication",
+            text = "Hyperion Med Vault",
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),

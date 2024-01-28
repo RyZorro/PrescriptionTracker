@@ -1,6 +1,4 @@
-package com.example.medicalprescriptiontracker.Application.UseCase
-
-import com.example.medicalprescriptiontracker.Medication
+package com.example.medicalprescriptiontracker
 
 /**
  * Use case interface for adding Medication Objects.

@@ -21,13 +21,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.medicalprescriptiontracker.Medication
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.MedicationViewModel
+import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
 
 @Composable
 fun MedicationItem(
     medication: Medication,
     modifier: Modifier = Modifier,
-    viewModel: MedicationViewModel
+    viewModel: HyperionMedVaultViewModel
 ) {
 
     var showDialog by remember { mutableStateOf(false) }
@@ -46,7 +46,6 @@ fun MedicationItem(
         ) {
 
             MedicationItemDetail(Icons.Default.Warning, "Medication", medication.medicationName)
-            MedicationItemDetail(null, "Manufacturer", medication.manufacturer)
             MedicationItemDetail(null, "Dosage", medication.dosage)
             MedicationItemDetail(null, "Frequency", medication.frequency)
             MedicationItemDetail(null, "Side Effects", medication.sideEffects)
@@ -65,7 +64,7 @@ fun MedicationItem(
     if (showDialog) {
         AddMedicationConfirmationDialog(
             onConfirm = {
-                viewModel.addMedicationToActiveCycle(medication)
+                //viewModel.addMedicationToActiveCycle(medication)
                 showDialog = false
             },
             onDismiss = {

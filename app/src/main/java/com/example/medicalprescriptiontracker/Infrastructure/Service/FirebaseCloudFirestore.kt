@@ -1,8 +1,9 @@
 package com.example.medicalprescriptiontracker.Infrastructure.Service
 
+import com.example.medicalprescriptiontracker.UserInfo
 import com.example.medicalprescriptiontracker.Prescription
 import com.example.medicalprescriptiontracker.Medication
-import com.example.medicalprescriptiontracker.Profile
+import com.example.medicalprescriptiontracker.UserProfile
 
 /**
  * Interface defining data operations related to medications using Firebase Cloud Firestore.
@@ -40,18 +41,14 @@ interface FirebaseCloudFirestore {
      */
     suspend fun getPrescriptions(userId: String): List<Prescription>
 
+    /**
+     * Retrieve user profile information for the specified user ID.
+     *
+     * @param userId The unique identifier of the user.
+     * @return [UserProfile] object containing user profile information.
+     */
+    suspend fun getUserProfileInfo(userId: String): UserProfile
 
-
-
-    suspend fun getUserProfileInfo(userId: String): Profile
-
-
-
-
-
-
-
-
-
+    suspend fun getMedicalInformation(userId: String): UserInfo
 
 }

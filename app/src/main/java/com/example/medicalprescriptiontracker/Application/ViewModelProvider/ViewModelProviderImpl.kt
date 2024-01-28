@@ -1,0 +1,35 @@
+package com.example.medicalprescriptiontracker.Application.ViewModelProvider
+
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.GetMedication.GetAllMedicationUseCase
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.GetMedication.GetAllMedicationUseCaseImpl
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.SearchMedication.SearchAllMedicationUseCase
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.SearchMedication.SearchAllMedicationUseCaseImpl
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionProfile.UserInfo.GetUserInfoUseCase
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionProfile.UserInfo.GetUserInfoUseCaseImpl
+import com.example.medicalprescriptiontracker.GetUserPrescriptionUseCase
+import com.example.medicalprescriptiontracker.GetUserPrescriptionUseCaseImpl
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionProfile.UserProfile.GetUserProfileUseCase
+import com.example.medicalprescriptiontracker.Application.UseCases.HyperionProfile.UserProfile.GetUserProfileUseCaseImpl
+import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseAuthenticationRepository
+import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseCloudFirestoreRepository
+import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
+import com.example.medicalprescriptiontracker.detailMedicationViewModel
+import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionProfileViewModel
+
+class ViewModelProviderImpl: ViewModelProvider {
+
+    private val firebaseAuthenticationRepository: FirebaseAuthenticationRepository = FirebaseAuthenticationRepository()
+    private val firebaseFirestoreRepository: FirebaseCloudFirestoreRepository = FirebaseCloudFirestoreRepository()
+
+    private val getUserProfileUseCase: GetUserProfileUseCase = GetUserProfileUseCaseImpl(firebaseFirestoreRepository)
+    private val getUserInfoUseCase: GetUserInfoUseCase = GetUserInfoUseCaseImpl(firebaseFirestoreRepository)
+    private val getUserPrescriptionUseCase: GetUserPrescriptionUseCase = GetUserPrescriptionUseCaseImpl(firebaseFirestoreRepository)
+    private val getAllMedicationUseCase: GetAllMedicationUseCase = GetAllMedicationUseCaseImpl(firebaseFirestoreRepository)
+    private val searchAllMedicationUseCase: SearchAllMedicationUseCase = SearchAllMedicationUseCaseImpl(firebaseFirestoreRepository)
+
+    override fun provideProfileViewModel(): HyperionProfileViewModel { return HyperionProfileViewModel(getUserProfileUseCase,getUserInfoUseCase) }
+    override fun providePrescriptionTrackingViewModel(): detailMedicationViewModel { return detailMedicationViewModel(getUserPrescriptionUseCase) }
+    override fun provideMedicalViewModel(): HyperionMedVaultViewModel {
+        return HyperionMedVaultViewModel(getAllMedicationUseCase,searchAllMedicationUseCase)
+    }
+}

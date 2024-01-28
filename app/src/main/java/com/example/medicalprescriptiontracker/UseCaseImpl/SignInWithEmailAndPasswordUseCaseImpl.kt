@@ -1,6 +1,6 @@
-package com.example.medicalprescriptiontracker.Application.UseCaseImpl
+package com.example.medicalprescriptiontracker.UseCaseImpl
 
-import com.example.medicalprescriptiontracker.Application.UseCase.SignInWithEmailAndPasswordUseCase
+import com.example.medicalprescriptiontracker.SignInWithEmailAndPasswordUseCase
 import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseAuthenticationRepository
 import com.example.medicalprescriptiontracker.User
 

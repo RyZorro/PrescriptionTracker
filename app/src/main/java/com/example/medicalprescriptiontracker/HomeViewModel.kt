@@ -3,17 +3,16 @@ package com.example.medicalprescriptiontracker
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.medicalprescriptiontracker.Application.UseCase.GetAllPrescriptionUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 /**
  * ViewModel responsible for handling prescription-related data and interactions.
- * @param getAllPrescriptionUseCase The use case responsible for fetching all prescriptions.
+ * @param getUserPrescriptionUseCase The use case responsible for fetching all prescriptions.
  */
 class HomeViewModel(
-    private val getAllPrescriptionUseCase: GetAllPrescriptionUseCase
+    private val getUserPrescriptionUseCase: GetUserPrescriptionUseCase
 ): ViewModel() {
 
     // StateFlow to observe the list of prescriptions
@@ -28,7 +27,7 @@ class HomeViewModel(
         viewModelScope.launch {
             try {
                 // Call the use case to get prescriptions for the specified user
-                val loadedPrescriptions = getAllPrescriptionUseCase.getPrescriptions(userId)
+                val loadedPrescriptions = getUserPrescriptionUseCase.getPrescriptions(userId)
 
                 // Update the StateFlow with the result
                 _prescriptions.value = loadedPrescriptions
