@@ -27,4 +27,9 @@ interface UserProfileRepository {
      * @throws Exception If any other exception occurs during the retrieval process.
      */
     suspend fun getMedicalInformation(userId: String): UserInfo
+
+    suspend fun updateUserProfileInfo(userId: String, userProfile: UserProfile)
+    suspend fun updateMedicalInformation(userId: String, medicalInfo: UserInfo)
+
+    suspend fun updateUserProfileField(userId: String, field: String, updatedValue: String)
 }

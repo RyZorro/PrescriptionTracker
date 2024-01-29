@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components.SignIn
+package com.example.medicalprescriptiontracker.SignIn
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

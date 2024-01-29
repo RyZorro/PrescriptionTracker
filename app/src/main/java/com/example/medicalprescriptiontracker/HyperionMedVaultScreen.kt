@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Screens
+package com.example.medicalprescriptiontracker
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,9 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.medicalprescriptiontracker.Presentation.Components.HyperionMedVault.MedicationItem
-import com.example.medicalprescriptiontracker.Presentation.Components.HyperionMedVault.SearchBar
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
+import com.example.medicalprescriptiontracker.HyperionMedVault.MedicationItem
+import com.example.medicalprescriptiontracker.HyperionMedVault.SearchBar
+import com.example.medicalprescriptiontracker.HyperionMedVaultViewModel
 
 @Composable
 fun HyperionMedVaultScreen(viewModel: HyperionMedVaultViewModel) {

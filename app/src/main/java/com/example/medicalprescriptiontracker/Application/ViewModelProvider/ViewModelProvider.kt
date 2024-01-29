@@ -1,9 +1,9 @@
 package com.example.medicalprescriptiontracker.Application.ViewModelProvider
 
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionDashboardViewModel
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
+import com.example.medicalprescriptiontracker.HyperionDashboardViewModel
+import com.example.medicalprescriptiontracker.HyperionMedVaultViewModel
 import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionProfileViewModel
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.SignInViewModel
+import com.example.medicalprescriptiontracker.SignInViewModel
 
 /**
  * Interface defining methods for providing various ViewModels in the Hyperion application.

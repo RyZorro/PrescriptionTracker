@@ -11,7 +11,7 @@ import com.example.medicalprescriptiontracker.Application.UseCases.GetUserProfil
 import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseAuthenticationRepository
 import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseMedicationRepository
 import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseUserProfileRepository
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
+import com.example.medicalprescriptiontracker.HyperionMedVaultViewModel
 import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionProfileViewModel
 import com.example.medicalprescriptiontracker.Application.UseCases.AddUserMedication.AddMedicationUseCase
 import com.example.medicalprescriptiontracker.Application.UseCases.AddUserMedication.AddMedicationUseCaseImpl
@@ -20,8 +20,12 @@ import com.example.medicalprescriptiontracker.Application.UseCases.GetUserPrescr
 import com.example.medicalprescriptiontracker.Application.UseCases.SignInUseCase.SignInWithEmailAndPasswordUseCase
 import com.example.medicalprescriptiontracker.Application.UseCases.SignInUseCase.SignInWithEmailAndPasswordUseCaseImpl
 import com.example.medicalprescriptiontracker.Infrastructure.Repositories.FirebaseUserPrescriptionRepository
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionDashboardViewModel
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.SignInViewModel
+import com.example.medicalprescriptiontracker.HyperionDashboardViewModel
+import com.example.medicalprescriptiontracker.SignInViewModel
+import com.example.medicalprescriptiontracker.UpdateUserMedicalInfoUseCase
+import com.example.medicalprescriptiontracker.UpdateUserMedicalInfoUseCaseImpl
+import com.example.medicalprescriptiontracker.UpdateUserProfileUseCase
+import com.example.medicalprescriptiontracker.UpdateUserProfileUseCaseImpl
 
 /**
  * Implementation of [ViewModelProvider] that provides instances of various ViewModels
@@ -45,6 +49,10 @@ class ViewModelProviderImpl : ViewModelProvider {
 
     private val getUserPrescriptionUseCase: GetUserPrescriptionUseCase = GetUserPrescriptionUseCaseImpl(firebaseUserPrescriptionRepository)
 
+    private val updateUserProfileUseCase: UpdateUserProfileUseCase = UpdateUserProfileUseCaseImpl(firebaseUserProfileRepository)
+    private val updateUserMedicalInfoUseCase: UpdateUserMedicalInfoUseCase = UpdateUserMedicalInfoUseCaseImpl(firebaseUserProfileRepository)
+
+
     private val signInWithEmailAndPasswordUseCase: SignInWithEmailAndPasswordUseCase = SignInWithEmailAndPasswordUseCaseImpl(firebaseAuthenticationRepository)
 
     /**
@@ -53,7 +61,7 @@ class ViewModelProviderImpl : ViewModelProvider {
      * @return An instance of [HyperionProfileViewModel].
      */
     override fun provideHyperionProfileViewModel(): HyperionProfileViewModel {
-        return HyperionProfileViewModel(getUserProfileUseCase, getUserInfoUseCase)
+        return HyperionProfileViewModel(getUserProfileUseCase, getUserInfoUseCase,updateUserProfileUseCase,updateUserMedicalInfoUseCase)
     }
 
     /**

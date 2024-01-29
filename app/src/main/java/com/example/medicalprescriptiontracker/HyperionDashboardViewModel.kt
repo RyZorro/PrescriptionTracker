@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.ViewModels
+package com.example.medicalprescriptiontracker
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components.HyperionDashboard
+package com.example.medicalprescriptiontracker
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text

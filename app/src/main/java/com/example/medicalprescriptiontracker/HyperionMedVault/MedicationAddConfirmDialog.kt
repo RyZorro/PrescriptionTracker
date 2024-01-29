@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components.HyperionMedVault
+package com.example.medicalprescriptiontracker.HyperionMedVault
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text

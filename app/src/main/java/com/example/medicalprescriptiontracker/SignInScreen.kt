@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Screens
+package com.example.medicalprescriptiontracker
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,9 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.medicalprescriptiontracker.Presentation.Components.SignIn.SignInForm
+import com.example.medicalprescriptiontracker.SignIn.SignInForm
 import com.example.medicalprescriptiontracker.Presentation.Screen.Screen
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.SignInViewModel
+import com.example.medicalprescriptiontracker.SignInViewModel
 
 /**
  * Composable function representing the sign-in screen.

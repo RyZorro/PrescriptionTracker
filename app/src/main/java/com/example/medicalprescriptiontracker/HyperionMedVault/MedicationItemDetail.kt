@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components.HyperionMedVault
+package com.example.medicalprescriptiontracker.HyperionMedVault
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

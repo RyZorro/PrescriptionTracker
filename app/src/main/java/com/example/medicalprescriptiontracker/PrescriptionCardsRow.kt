@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components.HyperionDashboard
+package com.example.medicalprescriptiontracker
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.medicalprescriptiontracker.Domain.Entities.Prescription
+import com.example.medicalprescriptiontracker.PrescriptionCard
 
 @Composable
 fun PrescriptionCardsRow(

@@ -61,14 +61,18 @@ class FirebaseMedicationRepository : MedicationRepository {
         try {
             val prescriptionId = UUID.randomUUID().toString()
 
+            // Create a prescription with "pending" status
             val prescription = Prescription(
                 prescriptionId = prescriptionId,
+                medicationId = medication.id,
                 medicationName = medication.medicationName,
                 instructions = medication.specialInstructions,
                 dosage = medication.dosage,
                 createdAt = "",
+                status = "pending" // Set status to "pending"
             )
 
+            // Add the prescription to the user's collection
             firestore.collection("users")
                 .document(userId)
                 .collection("prescriptions")

@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Screens
+package com.example.medicalprescriptiontracker
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionDashboardViewModel
+import com.example.medicalprescriptiontracker.HyperionDashboardViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

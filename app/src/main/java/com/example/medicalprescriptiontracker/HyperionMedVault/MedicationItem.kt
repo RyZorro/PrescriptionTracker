@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.Components.HyperionMedVault
+package com.example.medicalprescriptiontracker.HyperionMedVault
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.medicalprescriptiontracker.Domain.Entities.Medication
-import com.example.medicalprescriptiontracker.Presentation.ViewModels.HyperionMedVaultViewModel
+import com.example.medicalprescriptiontracker.HyperionMedVaultViewModel
 
 @Composable
 fun MedicationItem(

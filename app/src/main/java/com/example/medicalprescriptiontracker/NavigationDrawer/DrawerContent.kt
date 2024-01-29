@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.NavigationDrawer
+package com.example.medicalprescriptiontracker.NavigationDrawer
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon

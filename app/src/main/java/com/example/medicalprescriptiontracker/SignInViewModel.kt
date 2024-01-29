@@ -1,4 +1,4 @@
-package com.example.medicalprescriptiontracker.Presentation.ViewModels
+package com.example.medicalprescriptiontracker
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

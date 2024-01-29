@@ -26,11 +26,7 @@ import com.example.medicalprescriptiontracker.Presentation.Screens.ProfileScreen
 import com.example.medicalprescriptiontracker.Presentation.Screen.Screen
 import com.example.medicalprescriptiontracker.Application.ViewModelProvider.ViewModelProviderImpl
 import com.example.medicalprescriptiontracker.Domain.ValueObjects.NavigationItem
-import com.example.medicalprescriptiontracker.Presentation.NavigationDrawer.DrawerContent
-import com.example.medicalprescriptiontracker.Presentation.Screens.HomeScreen
-import com.example.medicalprescriptiontracker.Presentation.Screens.HyperionDashboardScreen
-import com.example.medicalprescriptiontracker.Presentation.Screens.HyperionMedVaultScreen
-import com.example.medicalprescriptiontracker.Presentation.Screens.SignInScreen
+import com.example.medicalprescriptiontracker.NavigationDrawer.DrawerContent
 import com.example.medicalprescriptiontracker.ui.theme.MedicalPrescriptionTrackerTheme
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -98,7 +94,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.SignIn.route,
+                        startDestination = Screen.Profile.route,
                     ) {
                         composable(Screen.SignIn.route) {
                             SignInScreen(signInViewModel, navController)

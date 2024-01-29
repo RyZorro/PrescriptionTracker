@@ -24,6 +24,7 @@ class FirebaseUserPrescriptionRepository : UserPrescriptionRepository {
         firestore.collection("users")
             .document(userId)
             .collection("prescriptions")
+            .whereEqualTo("status", "accepted")  // Adjust the status value as needed
             .get()
             .await()
             .documents.mapNotNull { it.toObject(Prescription::class.java) }
