@@ -1,7 +1,7 @@
 package com.example.medicalprescriptiontracker.Infrastructure.Repositories
 
+import com.example.medicalprescriptiontracker.Domain.Entities.User
 import com.example.medicalprescriptiontracker.Infrastructure.Service.FirebaseAuthentication
-import com.example.medicalprescriptiontracker.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.tasks.await

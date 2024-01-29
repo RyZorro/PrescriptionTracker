@@ -3,9 +3,10 @@ package com.example.medicalprescriptiontracker.Presentation.ViewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.GetMedication.GetAllMedicationUseCase
-import com.example.medicalprescriptiontracker.Application.UseCases.HyperionMedVault.SearchMedication.SearchAllMedicationUseCase
-import com.example.medicalprescriptiontracker.Medication
+import com.example.medicalprescriptiontracker.Application.UseCases.GetAllMedication.GetAllMedicationUseCase
+import com.example.medicalprescriptiontracker.Application.UseCases.SearchAllMedication.SearchAllMedicationUseCase
+import com.example.medicalprescriptiontracker.Application.UseCases.AddUserMedication.AddMedicationUseCase
+import com.example.medicalprescriptiontracker.Domain.Entities.Medication
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
  */
 class HyperionMedVaultViewModel(
     private val getAllMedicationUseCase: GetAllMedicationUseCase,
-    private val searchAllMedicationUseCase: SearchAllMedicationUseCase
+    private val searchAllMedicationUseCase: SearchAllMedicationUseCase,
+    private val addMedicationUseCase: AddMedicationUseCase
 ): ViewModel() {
 
     val firebaseAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
@@ -41,8 +43,8 @@ class HyperionMedVaultViewModel(
             }
         }
     }
-    /*
-        *//**
+
+    /**
      * Searches for medications based on the provided search query using the associated use case.
      * Updates the StateFlow with the search result.
      * @param searchQuery The query used to filter medications.
@@ -52,6 +54,7 @@ class HyperionMedVaultViewModel(
             try {
                 val searchedMedications = searchAllMedicationUseCase.searchAllMedication(searchQuery)
 
+                // Update the state flow with the searched medications
                 _medication.value = searchedMedications
 
                 Log.d("MedicationViewModel", "Medications searched successfully for query: $searchQuery")
@@ -61,14 +64,17 @@ class HyperionMedVaultViewModel(
         }
     }
 
-    /*fun addMedicationToActiveCycle(medication: Medication) {
+    /**
+     * Adds medication to the active cycle for the current user.
+     * @param medication The medication to be added.
+     */
+    fun addMedicationToUserPrescriptions(medication: Medication) {
         viewModelScope.launch {
             try {
                 val userId = firebaseAuth.currentUser?.uid
 
                 if (userId != null) {
                     addMedicationUseCase.addMedicationToUserPrescriptions(userId, medication)
-
                     Log.d("MedicationViewModel", "Medication added to user's prescriptions successfully")
                 } else {
                     Log.e("MedicationViewModel", "Current user ID is null")
@@ -77,5 +83,5 @@ class HyperionMedVaultViewModel(
                 Log.e("MedicationViewModel", "Error adding medication to user's prescriptions", e)
             }
         }
-    }*/
+    }
 }

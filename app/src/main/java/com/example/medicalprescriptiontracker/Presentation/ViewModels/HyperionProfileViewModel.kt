@@ -3,25 +3,38 @@ package com.example.medicalprescriptiontracker.Presentation.ViewModels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.medicalprescriptiontracker.Application.UseCases.HyperionProfile.UserProfile.GetUserProfileUseCase
-import com.example.medicalprescriptiontracker.UserInfo
-import com.example.medicalprescriptiontracker.Application.UseCases.HyperionProfile.UserInfo.GetUserInfoUseCase
-import com.example.medicalprescriptiontracker.UserProfile
+import com.example.medicalprescriptiontracker.Application.UseCases.GetUserProfile.GetUserProfileUseCase
+import com.example.medicalprescriptiontracker.Domain.ValueObjects.UserInfo
+import com.example.medicalprescriptiontracker.Application.UseCases.GetUserInfo.GetUserInfoUseCase
+import com.example.medicalprescriptiontracker.Domain.ValueObjects.UserProfile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel responsible for managing the data related to the user profile in the Hyperion app.
+ *
+ * @property getUserProfileUseCase The use case for retrieving user profile information.
+ * @property getUserInfoUseCase The use case for retrieving user medical information.
+ */
 class HyperionProfileViewModel(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getUserInfoUseCase: GetUserInfoUseCase
-): ViewModel() {
+) : ViewModel() {
 
+    // Mutable state flow for user profile information
     private val _userUserProfile = MutableStateFlow<UserProfile?>(null)
     val userUserProfile: StateFlow<UserProfile?> get() = _userUserProfile
 
+    // Mutable state flow for user medical information
     private val _userInfo = MutableStateFlow<UserInfo?>(null)
     val userInfo: StateFlow<UserInfo?> get() = _userInfo
 
+    /**
+     * Fetches the user profile information for the specified user ID.
+     *
+     * @param userId The unique identifier of the user.
+     */
     fun fetchUserProfile(userId: String) {
         viewModelScope.launch {
             try {
@@ -36,6 +49,11 @@ class HyperionProfileViewModel(
         }
     }
 
+    /**
+     * Fetches the user medical information for the specified user ID.
+     *
+     * @param userId The unique identifier of the user.
+     */
     fun fetchUserMedicalInfo(userId: String) {
         viewModelScope.launch {
             try {
